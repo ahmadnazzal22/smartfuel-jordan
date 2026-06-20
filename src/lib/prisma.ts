@@ -1,22 +1,23 @@
 import "server-only";
 import { PrismaClient } from "@/generated/prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
-import path from "node:path";
-
-const dbUrl = process.env.DATABASE_URL || "file:./prisma/dev.db";
-const isTurso = dbUrl.startsWith("libsql://");
-
-let resolvedUrl: string;
-if (isTurso || dbUrl.startsWith("file:")) {
-  resolvedUrl = dbUrl;
-} else {
-  resolvedUrl = dbUrl;
-}
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  adapter: new PrismaLibSql({ url: resolvedUrl }),
-});
+function createPrismaClient() {
+  const url = process.env.DATABASE_URL || "file:./prisma/dev.db";
+  return new (PrismaClient as any)({ datasources: { db: { url } } }) as PrismaClient;
+}
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+export function getPrisma(): PrismaClient {
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = createPrismaClient();
+  }
+  return globalForPrisma.prisma;
+}
+
+export const prisma = new Proxy({} as PrismaClient, {
+  get(_, prop) {
+    const client = getPrisma();
+    return (client as any)[prop];
+  },
+});

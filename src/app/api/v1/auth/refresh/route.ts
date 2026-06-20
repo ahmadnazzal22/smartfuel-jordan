@@ -4,6 +4,8 @@ import { schemas, validate } from "@/lib/security/validation";
 import { getClientIp } from "@/lib/security/rate-limiter";
 import { auditLog } from "@/lib/security/audit";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
   const { data, error } = validate(schemas.refresh, body);

@@ -1,95 +1,115 @@
-import type { Factor, Action, PredictionExplanation } from "@/types/prediction";
-
-export const mockKpi = {
-  fuel_availability_index: 92.4,
-  national_stability_score: 87.1,
-  avg_waiting_time_min: 4,
-  distribution_efficiency: 78.6,
-  supply_chain_health: 81.2,
-  fraud_detection_score: 96.3,
-  total_active_stations: 284,
-  total_stations: 312,
-  stations_at_risk: 12,
-  total_trucks_en_route: 18,
+export const dashboardData = {
+  data: {
+    totalStations: 8,
+    activeStations: 7,
+    totalTrucks: 5,
+    activeTrucks: 3,
+    totalTrips: 47,
+    alerts: 2,
+    avgFuelLevel: 74,
+    totalFuel: 184500,
+    stabilityScore: 82,
+    fuelAvailability: 78,
+    distributionEfficiency: 85,
+    supplyChainHealth: 74,
+  },
 };
 
-export const mockKpiHistory = Array.from({ length: 30 }, (_, i) => ({
-  date: new Date(Date.now() - (29 - i) * 86400000).toISOString().slice(0, 10),
-  fuel_availability_index: 85 + Math.random() * 15,
-  national_stability_score: 78 + Math.random() * 18,
-  distribution_efficiency: 70 + Math.random() * 25,
-  supply_chain_health: 75 + Math.random() * 20,
-}));
+export const kpiHistory = {
+  data: Array.from({ length: 30 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - 29 + i);
+    return {
+      date: date.toISOString().split("T")[0],
+      fuel_stored: Math.round(150000 + Math.random() * 50000),
+      fuel_distributed: Math.round(120000 + Math.random() * 40000),
+      active_stations: 6 + Math.floor(Math.random() * 3),
+      active_trucks: 2 + Math.floor(Math.random() * 3),
+      completed_trips: Math.round(30 + Math.random() * 20),
+      alerts_triggered: Math.floor(Math.random() * 5),
+    };
+  }),
+  meta: { total: 30 },
+};
 
-export const mockStations = [
-  { id: "s1", name: "Al-Hussein Station", region: "Amman", city: "Amman", status: "active", latitude: 31.9566, longitude: 35.9457, risk_score: 87, license_number: "JOF-2021-0042", contact_phone: "+962-6-555-1001", last_maintenance_at: "2024-11-15T08:00:00Z", fuel: { diesel: 5400, octane_90: 12000, octane_95: 8900 }, capacity: { diesel: 30000, octane_90: 25000, octane_95: 25000 } },
-  { id: "s2", name: "King Abdullah II Station", region: "Amman", city: "Amman", status: "active", latitude: 31.9639, longitude: 35.9302, risk_score: 23, license_number: "JOF-2022-0081", contact_phone: "+962-6-555-1002", last_maintenance_at: "2024-12-01T10:00:00Z", fuel: { diesel: 22000, octane_90: 18000, octane_95: 15000 }, capacity: { diesel: 30000, octane_90: 25000, octane_95: 25000 } },
-  { id: "s3", name: "Irbid Central Station", region: "Irbid", city: "Irbid", status: "active", latitude: 32.5556, longitude: 35.8497, risk_score: 45, license_number: "JOF-2020-0033", contact_phone: "+962-2-555-2001", last_maintenance_at: "2024-10-20T09:00:00Z", fuel: { diesel: 8500, octane_90: 14000, octane_95: 6000 }, capacity: { diesel: 20000, octane_90: 20000, octane_95: 15000 } },
-  { id: "s4", name: "Zarqa Main Station", region: "Zarqa", city: "Zarqa", status: "active", latitude: 32.0778, longitude: 36.0928, risk_score: 62, license_number: "JOF-2021-0057", contact_phone: "+962-5-555-3001", last_maintenance_at: "2024-11-28T11:00:00Z", fuel: { diesel: 4200, octane_90: 6500, octane_95: 3000 }, capacity: { diesel: 15000, octane_90: 12000, octane_95: 10000 } },
-  { id: "s5", name: "Aqaba Port Station", region: "Aqaba", city: "Aqaba", status: "active", latitude: 29.5319, longitude: 35.0069, risk_score: 15, license_number: "JOF-2019-0012", contact_phone: "+962-3-555-4001", last_maintenance_at: "2024-12-10T07:00:00Z", fuel: { diesel: 28000, octane_90: 22000, octane_95: 18000 }, capacity: { diesel: 35000, octane_90: 25000, octane_95: 20000 } },
-  { id: "s6", name: "Balqa Station", region: "Balqa", city: "Salt", status: "maintenance", latitude: 32.0392, longitude: 35.7275, risk_score: 0, license_number: "JOF-2022-0095", contact_phone: "+962-5-555-5001", last_maintenance_at: "2024-12-15T06:00:00Z", fuel: { diesel: 0, octane_90: 0, octane_95: 0 }, capacity: { diesel: 15000, octane_90: 12000, octane_95: 10000 } },
-  { id: "s7", name: "Mafraq Station", region: "Mafraq", city: "Mafraq", status: "active", latitude: 32.3429, longitude: 36.2081, risk_score: 78, license_number: "JOF-2023-0110", contact_phone: "+962-2-555-6001", last_maintenance_at: "2024-09-05T08:00:00Z", fuel: { diesel: 1800, octane_90: 3200, octane_95: 1500 }, capacity: { diesel: 12000, octane_90: 10000, octane_95: 8000 } },
-  { id: "s8", name: "Karak Station", region: "Karak", city: "Karak", status: "active", latitude: 31.1853, longitude: 35.7048, risk_score: 34, license_number: "JOF-2021-0068", contact_phone: "+962-3-555-7001", last_maintenance_at: "2024-10-30T09:00:00Z", fuel: { diesel: 11000, octane_90: 9500, octane_95: 7200 }, capacity: { diesel: 18000, octane_90: 14000, octane_95: 12000 } },
-];
+export const regions = {
+  data: [
+    { name: "Amman", stations: 3, active: 3, at_risk: 1, avg_fuel: 72, trend: "stable" },
+    { name: "Irbid", stations: 1, active: 1, at_risk: 0, avg_fuel: 81, trend: "up" },
+    { name: "Zarqa", stations: 1, active: 1, at_risk: 0, avg_fuel: 76, trend: "stable" },
+    { name: "Balqa", stations: 1, active: 1, at_risk: 2, avg_fuel: 52, trend: "down" },
+    { name: "Mafraq", stations: 1, active: 1, at_risk: 1, avg_fuel: 43, trend: "down" },
+    { name: "Karak", stations: 1, active: 1, at_risk: 0, avg_fuel: 78, trend: "up" },
+    { name: "Aqaba", stations: 1, active: 1, at_risk: 0, avg_fuel: 89, trend: "up" },
+  ],
+};
 
-export const mockPredictions: Array<{
-  id: string; station_id: string; region: string; fuel_type: string; prediction_date: string;
-  outcome: "critical_shortage" | "shortage" | "stable" | "surplus"; predicted_level: number; confidence: number;
-}> = [
-  { id: "p1", station_id: "s1", region: "Amman", fuel_type: "diesel", prediction_date: "2024-12-20", outcome: "critical_shortage", predicted_level: 1800, confidence: 94 },
-  { id: "p2", station_id: "s4", region: "Zarqa", fuel_type: "octane_95", prediction_date: "2024-12-21", outcome: "shortage", predicted_level: 1200, confidence: 82 },
-  { id: "p3", station_id: "s7", region: "Mafraq", fuel_type: "diesel", prediction_date: "2024-12-19", outcome: "shortage", predicted_level: 800, confidence: 76 },
-  { id: "p4", station_id: "", region: "Amman", fuel_type: "diesel", prediction_date: "2024-12-22", outcome: "stable", predicted_level: 15000, confidence: 68 },
-  { id: "p5", station_id: "s3", region: "Irbid", fuel_type: "octane_90", prediction_date: "2024-12-20", outcome: "surplus", predicted_level: 18000, confidence: 71 },
-];
+export const stations = {
+  data: [
+    { id: "1", name: "Al-Hussein Station", region: "Amman", status: "active", lat: 31.9454, lng: 35.9284, fuelInventories: [{ fuelType: "diesel", currentLevel: 15000, maxCapacity: 20000 }, { fuelType: "octane95", currentLevel: 8000, maxCapacity: 12000 }] },
+    { id: "2", name: "King Abdullah II Station", region: "Amman", status: "active", lat: 31.9632, lng: 35.9302, fuelInventories: [{ fuelType: "diesel", currentLevel: 12000, maxCapacity: 18000 }, { fuelType: "octane90", currentLevel: 9000, maxCapacity: 10000 }] },
+    { id: "3", name: "Irbid Central", region: "Irbid", status: "active", lat: 32.5454, lng: 35.8572, fuelInventories: [{ fuelType: "diesel", currentLevel: 18000, maxCapacity: 22000 }, { fuelType: "octane95", currentLevel: 10000, maxCapacity: 12000 }] },
+    { id: "4", name: "Zarqa Main", region: "Zarqa", status: "active", lat: 32.0841, lng: 36.1007, fuelInventories: [{ fuelType: "diesel", currentLevel: 8000, maxCapacity: 15000 }] },
+    { id: "5", name: "Balqa Station", region: "Balqa", status: "active", lat: 32.0333, lng: 35.7333, fuelInventories: [{ fuelType: "diesel", currentLevel: 5000, maxCapacity: 10000 }, { fuelType: "octane90", currentLevel: 3000, maxCapacity: 8000 }] },
+    { id: "6", name: "Mafraq Station", region: "Mafraq", status: "inactive", lat: 32.3500, lng: 36.2000, fuelInventories: [{ fuelType: "diesel", currentLevel: 1000, maxCapacity: 8000 }] },
+    { id: "7", name: "Karak Station", region: "Karak", status: "active", lat: 31.1667, lng: 35.7000, fuelInventories: [{ fuelType: "diesel", currentLevel: 14000, maxCapacity: 18000 }, { fuelType: "octane95", currentLevel: 7000, maxCapacity: 10000 }] },
+    { id: "8", name: "Aqaba Port Station", region: "Aqaba", status: "active", lat: 29.5167, lng: 35.0000, fuelInventories: [{ fuelType: "diesel", currentLevel: 25000, maxCapacity: 30000 }, { fuelType: "octane90", currentLevel: 12000, maxCapacity: 15000 }] },
+  ],
+};
 
-export const mockExplanation = {
-  predictionId: "p1",
-  stationId: "s1",
-  region: "Amman",
-  fuelType: "diesel",
-  predictionDate: "2024-12-20",
-  outcome: "critical_shortage" as const,
-  confidence: 94,
-  timestamp: new Date().toISOString(),
-  contributingFactors: [
-    { factor: "demand_spike", label: "High Demand", weight: 0.42, value: 87, trend: "up" as const, threshold: 50 },
-    { factor: "delivery_delay", label: "Delivery Delay (14h)", weight: 0.31, value: 14, trend: "up" as const, threshold: 6 },
-    { factor: "inventory_low", label: "Low Inventory (18%)", weight: 0.27, value: 18, trend: "down" as const, threshold: 25 },
-  ] satisfies Factor[],
-  recommendedActions: [
-    { priority: 1 as const, action: "dispatch_truck", label: "Dispatch T-102 → 12,000L Diesel", params: { truck_id: "T-102", fuel: "diesel", qty: 12000 }, expectedImpact: "Restores to 58% capacity" },
-    { priority: 2 as const, action: "alert_authority", label: "Alert Ministry of Energy", params: { severity: "warning" }, expectedImpact: "Activates reserve protocol" },
-  ] satisfies Action[],
-} satisfies PredictionExplanation;
+export const predictions = {
+  data: [
+    { id: "1", stationId: "6", stationName: "Mafraq Station", region: "Mafraq", fuelType: "diesel", predictedShortageDays: 7, confidence: 89, risk: "high", status: "active", createdAt: new Date().toISOString(), factors: [{ name: "low_inventory", impact: 0.7 }], recommendedActions: ["Restock within 3 days"] },
+    { id: "2", stationId: "5", stationName: "Balqa Station", region: "Balqa", fuelType: "octane90", predictedShortageDays: 14, confidence: 76, risk: "medium", status: "active", createdAt: new Date().toISOString(), factors: [{ name: "consumption_rate", impact: 0.5 }], recommendedActions: ["Monitor consumption"] },
+    { id: "3", stationId: "1", stationName: "Al-Hussein Station", region: "Amman", fuelType: "diesel", predictedShortageDays: 21, confidence: 72, risk: "medium", status: "active", createdAt: new Date().toISOString(), factors: [{ name: "seasonal_demand", impact: 0.4 }], recommendedActions: ["Schedule resupply"] },
+  ],
+  meta: { total: 3 },
+};
 
-export const mockTrucks = [
-  { id: "t1", plate: "T-101", driver: "Ahmed Hassan", fuel_type: "diesel", capacity: 15000, current_load: 12000, status: "en_route", region: "Amman", latitude: 31.9700, longitude: 35.9400, speed: 62, heading: 180 },
-  { id: "t2", plate: "T-102", driver: "Mohammad Ali", fuel_type: "diesel", capacity: 15000, current_load: 15000, status: "loading", region: "Aqaba", latitude: 29.5300, longitude: 35.0100, speed: 0, heading: 0 },
-  { id: "t3", plate: "T-103", driver: "Khalid Ibrahim", fuel_type: "octane_90", capacity: 12000, current_load: 8000, status: "en_route", region: "Irbid", latitude: 32.5000, longitude: 35.8000, speed: 78, heading: 45 },
-  { id: "t4", plate: "T-104", driver: "Yousef Omar", fuel_type: "diesel", capacity: 15000, current_load: 0, status: "returning", region: "Amman", latitude: 32.0000, longitude: 35.9000, speed: 55, heading: 200 },
-  { id: "t5", plate: "T-105", driver: "Sami Nasser", fuel_type: "octane_95", capacity: 10000, current_load: 10000, status: "idle", region: "Zarqa", latitude: 32.0700, longitude: 36.0800, speed: 0, heading: 0 },
-];
+export const trucks = {
+  data: [
+    { id: "1", plate: "12-3456", driver: "Ahmed Hassan", status: "active", lat: 31.95, lng: 35.93, fuelCapacity: 32000, loadPercent: 85, currentLoad: 27200, region: "Amman" },
+    { id: "2", plate: "78-9012", driver: "Mohammed Ali", status: "active", lat: 32.55, lng: 35.86, fuelCapacity: 32000, loadPercent: 62, currentLoad: 19840, region: "Irbid" },
+    { id: "3", plate: "34-5678", driver: "Khaled Omar", status: "active", lat: 32.08, lng: 36.10, fuelCapacity: 28000, loadPercent: 45, currentLoad: 12600, region: "Zarqa" },
+    { id: "4", plate: "90-1234", driver: "Sami Yousef", status: "idle", lat: 31.95, lng: 35.93, fuelCapacity: 32000, loadPercent: 0, currentLoad: 0, region: "Amman" },
+    { id: "5", plate: "56-7890", driver: "Nasser Khalil", status: "maintenance", lat: 31.95, lng: 35.93, fuelCapacity: 28000, loadPercent: 0, currentLoad: 0, region: "Amman" },
+  ],
+};
 
-export const mockNotifications: Array<{
-  id: string; title: string; body: string; severity: "info" | "warning" | "critical" | "emergency";
-  category: "shortage" | "delivery" | "maintenance" | "system"; created_at: string; is_read: boolean;
-}> = [
-  { id: "n1", title: "Critical Shortage Detected", body: "Al-Hussein Station — Diesel at 18%. Dispatch required.", severity: "critical", category: "shortage", created_at: new Date(Date.now() - 600000).toISOString(), is_read: false },
-  { id: "n2", title: "Delivery En Route", body: "T-102 dispatched from Aqaba to Amman. ETA 3 hours.", severity: "info", category: "delivery", created_at: new Date(Date.now() - 1800000).toISOString(), is_read: false },
-  { id: "n3", title: "Station Offline", body: "Balqa Station entered maintenance mode.", severity: "warning", category: "maintenance", created_at: new Date(Date.now() - 3600000).toISOString(), is_read: true },
-  { id: "n4", title: "Weekly Report Ready", body: "National fuel report for week 50 is available.", severity: "info", category: "system", created_at: new Date(Date.now() - 7200000).toISOString(), is_read: true },
-  { id: "n5", title: "Fraud Alert", body: "Anomalous sensor reading detected at Zarqa Main Station.", severity: "warning", category: "system", created_at: new Date(Date.now() - 14400000).toISOString(), is_read: true },
-];
+export const notifications = {
+  data: [
+    { id: "1", title: "Low Fuel Alert - Mafraq", message: "Mafraq Station diesel below 20%", type: "critical", severity: "critical", read: false, createdAt: new Date().toISOString(), stationId: "6", stationName: "Mafraq Station" },
+    { id: "2", title: "Theft Detection - Balqa", message: "Inventory discrepancy detected at Balqa Station", type: "warning", severity: "high", read: false, createdAt: new Date(Date.now() - 3600000).toISOString(), stationId: "5", stationName: "Balqa Station" },
+    { id: "3", title: "Route Deviation - Truck 34-5678", message: "Truck deviated from planned route", type: "warning", severity: "medium", read: false, createdAt: new Date(Date.now() - 7200000).toISOString() },
+    { id: "4", title: "Maintenance Due - Truck 56-7890", message: "Scheduled maintenance in 3 days", type: "info", severity: "low", read: false, createdAt: new Date(Date.now() - 14400000).toISOString() },
+  ],
+};
 
-export const mockRegions = [
-  { name: "Amman", stations: 98, active: 92, at_risk: 5, avg_fuel: 62, trend: "stable" },
-  { name: "Irbid", stations: 52, active: 48, at_risk: 3, avg_fuel: 48, trend: "down" },
-  { name: "Zarqa", stations: 45, active: 40, at_risk: 2, avg_fuel: 55, trend: "up" },
-  { name: "Balqa", stations: 28, active: 24, at_risk: 1, avg_fuel: 71, trend: "stable" },
-  { name: "Aqaba", stations: 22, active: 22, at_risk: 0, avg_fuel: 88, trend: "stable" },
-  { name: "Mafraq", stations: 18, active: 15, at_risk: 1, avg_fuel: 38, trend: "down" },
-  { name: "Karak", stations: 25, active: 23, at_risk: 0, avg_fuel: 65, trend: "up" },
-  { name: "Madaba", stations: 14, active: 12, at_risk: 0, avg_fuel: 52, trend: "stable" },
-  { name: "Jerash", stations: 10, active: 8, at_risk: 0, avg_fuel: 45, trend: "down" },
-];
+export const recommendations = {
+  data: [
+    { id: "rec-1", priority: "P1", type: "restock", title: "Urgent Restock: Mafraq Station", description: "Diesel inventory critically low (12%). Immediate restock required.", stationId: "6", stationName: "Mafraq Station", confidence: 94, expectedImpact: "Critical", fuelType: "diesel" },
+    { id: "rec-2", priority: "P2", type: "maintenance", title: "Route Optimization: Zarqa Region", description: "Current supply routes inefficient. Optimize to reduce fuel waste.", confidence: 82, expectedImpact: "Medium", fuelType: "all" },
+    { id: "rec-3", priority: "P1", type: "prediction", title: "Shortage Risk: Balqa Octane90", description: "Predicted shortage within 14 days at Balqa Station.", stationId: "5", stationName: "Balqa Station", confidence: 76, expectedImpact: "High", fuelType: "octane90" },
+    { id: "rec-4", priority: "P3", type: "fleet", title: "Fleet Redistribution", description: "3 trucks idle in Amman. Consider redeploying to northern regions.", confidence: 68, expectedImpact: "Low", fuelType: "all" },
+  ],
+};
+
+export const auditLogs = {
+  data: [
+    { id: "1", action: "login", entity: "user", entityId: "1", userId: "1", userName: "System Admin", userEmail: "admin@smartfuel.jo", ip: "192.168.1.1", timestamp: new Date(Date.now() - 600000).toISOString(), details: "Admin logged in" },
+    { id: "2", action: "update", entity: "station", entityId: "6", userId: "1", userName: "System Admin", userEmail: "admin@smartfuel.jo", ip: "192.168.1.1", timestamp: new Date(Date.now() - 1800000).toISOString(), details: "Mafraq Station status updated" },
+    { id: "3", action: "alert", entity: "prediction", entityId: "1", userId: "1", userName: "System Admin", userEmail: "admin@smartfuel.jo", ip: "192.168.1.1", timestamp: new Date(Date.now() - 3600000).toISOString(), details: "Shortage alert triggered for Mafraq" },
+    { id: "4", action: "create", entity: "trip", entityId: "trip-47", userId: "2", userName: "Operator", userEmail: "operator@smartfuel.jo", ip: "10.0.0.5", timestamp: new Date(Date.now() - 7200000).toISOString(), details: "New trip created: Amman to Irbid" },
+    { id: "5", action: "update", entity: "inventory", entityId: "inv-3", userId: "2", userName: "Operator", userEmail: "operator@smartfuel.jo", ip: "10.0.0.5", timestamp: new Date(Date.now() - 14400000).toISOString(), details: "Irbid Central inventory adjusted" },
+  ],
+};
+
+export const anomalies = {
+  data: [
+    { id: "anom-1", type: "fuel_theft", severity: "critical", status: "open", stationId: "5", stationName: "Balqa Station", description: "Inventory discrepancy: 340L unaccounted", deviationPercent: 12, detectedAt: new Date(Date.now() - 7200000).toISOString(), region: "Balqa" },
+    { id: "anom-2", type: "sensor_malfunction", severity: "high", status: "investigating", stationId: "6", stationName: "Mafraq Station", description: "Sensor #3 reporting erratic readings", deviationPercent: 45, detectedAt: new Date(Date.now() - 14400000).toISOString(), region: "Mafraq" },
+    { id: "anom-3", type: "inventory_discrepancy", severity: "medium", status: "open", stationId: "2", stationName: "King Abdullah II Station", description: "Stock count mismatch in diesel inventory", deviationPercent: 5, detectedAt: new Date(Date.now() - 28800000).toISOString(), region: "Amman" },
+    { id: "anom-4", type: "route_deviation", severity: "high", status: "investigating", truckId: "3", truckPlate: "34-5678", description: "Truck deviated 15km from planned route", deviationPercent: 30, detectedAt: new Date(Date.now() - 43200000).toISOString(), region: "Zarqa" },
+    { id: "anom-5", type: "meter_tampering", severity: "critical", status: "resolved", stationId: "3", stationName: "Irbid Central", description: "Pump meter tampering detected and resolved", deviationPercent: 8, detectedAt: new Date(Date.now() - 86400000).toISOString(), region: "Irbid" },
+  ],
+};

@@ -3,6 +3,8 @@ import { getTokenFromRequest, verifyToken } from "@/lib/auth";
 import { revokeSession } from "@/lib/auth-server";
 import { auditLog } from "@/lib/security/audit";
 
+export const dynamic = "force-dynamic"
+
 export async function POST(req: Request) {
   const token = getTokenFromRequest(req);
   if (token) {
