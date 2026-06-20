@@ -4,8 +4,13 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const data = await prisma.notification.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
-  return NextResponse.json({ data });
+  try {
+    const data = await prisma.notification.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
+    return NextResponse.json({ data });
+  } catch {
+    const { notifications } = await import("@/lib/mock-data");
+    return NextResponse.json(notifications);
+  }
 }
 
 export async function PATCH(req: Request) {
