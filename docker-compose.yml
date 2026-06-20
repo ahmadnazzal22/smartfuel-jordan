@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  smartfuel-jordan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smartfuel-jordan
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:./prisma/dev.db
+      - NEXT_TELEMETRY_DISABLED=1
+    volumes:
+      - ./prisma/dev.db:/app/prisma/dev.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:3000/overview"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

@@ -1,0 +1,263 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id             String     @id @default(cuid())
+  email          String     @unique
+  passwordHash   String
+  name           String
+  role           String     @default("operator")
+  region         String?
+  avatarUrl      String?
+  isActive       Boolean    @default(true)
+  loginAttempts  Int        @default(0)
+  lockedUntil    DateTime?
+  lastLoginAt    DateTime?
+  lastLoginAttempt DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  notifications  Notification[]
+  auditLogs      AuditLog[]
+  sessions       Session[]
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  token     String    @unique
+  ip        String?
+  expiresAt DateTime
+  isRevoked Boolean   @default(false)
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+model Station {
+  id               String   @id @default(cuid())
+  name             String
+  licenseNumber    String
+  region           String
+  city             String
+  latitude         Float
+  longitude        Float
+  status           String   @default("active")
+  riskScore        Float    @default(0)
+  contactPhone     String?
+  operatingHours   String?
+  lastMaintenanceAt DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  sensors          Sensor[]
+  predictions      Prediction[]
+  notifications    Notification[]
+  fuelInventories  FuelInventory[]
+  anomalies        Anomaly[]
+}
+
+model Sensor {
+  id            String   @id @default(cuid())
+  stationId     String
+  sensorType    String
+  fuelType      String
+  currentValue  Float
+  batteryLevel  Float
+  lastReadingAt DateTime
+  isOnline      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  station       Station  @relation(fields: [stationId], references: [id])
+  readings      SensorReading[]
+}
+
+model SensorReading {
+  id        String   @id @default(cuid())
+  sensorId  String
+  fuelType  String
+  value     Float
+  timestamp DateTime @default(now())
+
+  sensor    Sensor   @relation(fields: [sensorId], references: [id])
+}
+
+model FuelInventory {
+  id               String   @id @default(cuid())
+  stationId        String
+  fuelType         String
+  currentLevel     Float
+  minThreshold     Float
+  maxCapacity      Float
+  replenishmentEta DateTime?
+  lastRestockedAt  DateTime?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  station          Station  @relation(fields: [stationId], references: [id])
+}
+
+model Prediction {
+  id             String   @id @default(cuid())
+  stationId      String
+  region         String
+  fuelType       String
+  predictionDate String
+  outcome        String
+  predictedLevel Float
+  confidence     Float
+  modelVersion   String?
+  createdAt      DateTime @default(now())
+
+  station        Station  @relation(fields: [stationId], references: [id])
+  explanations   XaiExplanation[]
+}
+
+model XaiExplanation {
+  id                String   @id @default(cuid())
+  predictionId      String
+  timestamp         DateTime @default(now())
+  shapValues        String?
+  counterfactuals   String?
+
+  prediction        Prediction @relation(fields: [predictionId], references: [id])
+  factors           Factor[]
+  actions           Action[]
+}
+
+model Factor {
+  id          String @id @default(cuid())
+  explanationId String
+  factor      String
+  label       String
+  weight      Float
+  value       Float
+  trend       String
+  threshold   Float?
+
+  explanation XaiExplanation @relation(fields: [explanationId], references: [id])
+}
+
+model Action {
+  id          String  @id @default(cuid())
+  explanationId String
+  priority    Int
+  action      String
+  label       String
+  params      String?
+  expectedImpact String?
+
+  explanation XaiExplanation @relation(fields: [explanationId], references: [id])
+}
+
+model Truck {
+  id            String   @id @default(cuid())
+  plateNumber   String   @unique
+  driverName    String
+  driverPhone   String?
+  status        String   @default("idle")
+  fuelType      String
+  capacity      Float
+  currentLoad   Float    @default(0)
+  latitude      Float?
+  longitude     Float?
+  lastGpsUpdate DateTime?
+  region        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  trips         Trip[]
+  gpsLogs       GpsLog[]
+  anomalies     Anomaly[]
+}
+
+model Trip {
+  id            String    @id @default(cuid())
+  truckId       String
+  origin        String
+  destination   String
+  fuelType      String
+  quantity      Float
+  status        String    @default("scheduled")
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  truck         Truck     @relation(fields: [truckId], references: [id])
+}
+
+model GpsLog {
+  id        String   @id @default(cuid())
+  truckId   String
+  latitude  Float
+  longitude Float
+  speed     Float?
+  heading   Float?
+  timestamp DateTime @default(now())
+
+  truck     Truck    @relation(fields: [truckId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String?
+  stationId String?
+  title     String
+  body      String
+  severity  String   @default("info")
+  category  String   @default("system")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id])
+  station   Station? @relation(fields: [stationId], references: [id])
+}
+
+model KpiSnapshot {
+  id        String   @id @default(cuid())
+  date      String
+  metric    String
+  value     Float
+  region    String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  entityId  String?
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Anomaly {
+  id              String   @id @default(cuid())
+  stationId       String?
+  truckId         String?
+  type            String
+  severity        String   @default("medium")
+  description     String
+  detectedValue   Float
+  expectedValue   Float?
+  deviationPercent Float?
+  status          String   @default("open")
+  resolvedAt      DateTime?
+  region          String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  station         Station? @relation(fields: [stationId], references: [id])
+  truck           Truck?   @relation(fields: [truckId], references: [id])
+}
