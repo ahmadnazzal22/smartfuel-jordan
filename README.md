@@ -1,205 +1,189 @@
-# SmartFuel Jordan — National Fuel Intelligence Command
+# SmartFuel Jordan — Fuel Supply Intelligence Platform
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js" />
-  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss" />
-  <img src="https://img.shields.io/badge/Prisma-7.8-2D3748?style=flat-square&logo=prisma" />
-  <img src="https://img.shields.io/badge/Framer_Motion-11-EF0076?style=flat-square&logo=framer" />
-  <img src="https://img.shields.io/badge/Recharts-2.12-FF6C37?style=flat-square" />
-  <img src="https://img.shields.io/badge/Three.js-R3F-000000?style=flat-square&logo=three.js" />
-  <br/>
-  <img src="https://img.shields.io/badge/Status-Production_Ready-10b981?style=flat-square" />
-  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/Platform-Web_|_Mobile-8b5cf6?style=flat-square" />
+  <strong>A dashboard concept for fuel supply monitoring, analytics, and operational insights.</strong>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-14.2-black?style=flat-square&logo=next.js" alt="Next.js"/>
+  <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind CSS"/>
+  <img src="https://img.shields.io/badge/Prisma-ORM-2D3748?style=flat-square&logo=prisma" alt="Prisma"/>
+  <img src="https://img.shields.io/badge/Framer_Motion-11-EF0076?style=flat-square&logo=framer" alt="Framer Motion"/>
+  <img src="https://img.shields.io/badge/Recharts-2.12-FF6C37?style=flat-square" alt="Recharts"/>
+  <img src="https://img.shields.io/badge/Three.js-3D-000000?style=flat-square&logo=three.js" alt="Three.js"/>
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="MIT License"/>
 </p>
 
 ---
 
 ## Overview
 
-**SmartFuel Jordan** is an enterprise-grade, government-class command-and-control platform for monitoring, managing, and securing Jordan's national fuel supply chain. Designed to rival modern military C2 systems, it delivers a real-time, AI-powered dashboard with 3D geospatial visualization, predictive analytics, anomaly detection, and intelligent recommendations.
+**SmartFuel Jordan** is a web application concept for visualizing and managing fuel supply operations through a centralized dashboard.
 
-> *"A unified national energy intelligence platform — combining 3D geospatial visualization, predictive analytics, anomaly detection, and smart recommendations in a single command center."*
+The platform brings together operational indicators, station information, fleet management, analytics, and predictive features in a single interface.
+
+It is designed around a Jordan-focused fuel network, with regional visualizations and tools for exploring supply activity, potential risks, and operational performance.
+
+> This project demonstrates a software platform concept. Its dashboards, predictions, and monitoring capabilities should not be interpreted as verified live data from Jordan's national fuel infrastructure.
 
 ---
 
 ## Key Features
 
-### 🎯 Unified National Command
-- **Executive Dashboard** — National stability gauge, real-time KPIs, AI executive summary
-- **3D Jordan Map** — Extruded country mesh with city markers, supply routes, port beacon
-- **Digital Twin** — Live Three.js simulation of the national fuel network
+### Command Dashboard
+- Executive overview with key performance indicators.
+- Summary of fuel supply and operational activity.
+- Regional information displayed through dashboard visualizations.
+- AI-generated summary interface.
 
-### 📊 Analytics & KPIs
-- **Live KPI Cards** — 6 real-time indicators with animated counters and trend deltas
-- **30-Day Area Chart** — Interactive Recharts visualization with gradient fills
-- **Regional Risk Heatmap** — 3×3 governorate risk grid with color-coded cells
-- **Governorate Breakdown** — Detailed per-region station and fuel table
+### 3D Visualization
+- Interactive 3D map interface for Jordan.
+- City and regional markers.
+- Visual representation of fuel supply routes.
+- Digital-twin-style network visualization.
 
-### 🤖 AI & Predictions
-- **Smart Predictions** — 72-hour shortage forecasting with up to 96% confidence
-- **Recommendation Engine** — Automated restock, maintenance, and fleet recommendations
-- **AI Insight Cards** — Real-time intelligence with confidence scores and impact metrics
-- **AI CoPilot** — Natural language chat interface for data queries
+### Analytics
+- KPI cards and historical charts.
+- Regional risk visualization.
+- Governorate-level station and fuel information.
+- Operational activity summaries.
 
-### 🔍 Security & Monitoring
-- **Fuel Theft Detection** — Inventory discrepancy alerts, meter tampering detection
-- **Anomaly Detection** — Sensor malfunctions, route deviations, unauthorized access
-- **Audit Trail** — Full activity log with advanced filtering and pagination
-- **Early Warning System** — Instant alerts for critical risks and shortages
+### AI & Predictions
+- Shortage forecasting interface.
+- Recommendation engine for restocking and maintenance scenarios.
+- AI insight cards.
+- Natural-language AI CoPilot interface.
 
-### 🚚 Fleet Management
-- **Truck Tracking** — Live GPS monitoring with supply routes
-- **Load Distribution** — Real-time capacity and load percentage tracking
-- **Trip History** — Complete transportation log with origin/destination
+*Prediction accuracy and operational reliability depend on the underlying data and models. Do not interpret demonstration results as validated forecasts.*
+
+### Monitoring & Anomaly Interfaces
+- Fuel inventory discrepancy alerts.
+- Sensor anomaly scenarios.
+- Route deviation indicators.
+- Audit trail and activity history.
+- Early-warning dashboard.
+
+### Fleet Management
+- Truck location visualization.
+- Supply route display.
+- Load and capacity indicators.
+- Trip history interface.
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Framework | [Next.js 14](https://nextjs.org/) (App Router) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) |
-| Animations | [Framer Motion](https://www.framer.com/motion/) |
-| 3D Graphics | [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) + Three.js |
-| Charts | [Recharts](https://recharts.org/) |
-| Icons | [Lucide React](https://lucide.dev/) |
-| ORM | [Prisma](https://www.prisma.io/) |
-| Database | SQLite (dev) / Turso LibSQL (prod) |
-| Auth | bcryptjs + JWT sessions |
-| Real-time | WebSocket (ws) |
+|---|---|
+| Framework | Next.js 14, App Router |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Animations | Framer Motion |
+| 3D Visualization | React Three Fiber, Three.js |
+| Charts | Recharts |
+| Icons | Lucide React |
+| ORM | Prisma |
+| Database | SQLite / Turso LibSQL |
+| Authentication | bcryptjs, JWT sessions |
+| Real-time | WebSocket (`ws`) |
 
-### Visual Design System
-- **Palette** — Zinc-950 background, emerald-400 accent (`#34d399`), amber/rose for alerts
-- **Glassmorphism** — `.glass-panel` with 24–32px backdrop blur and saturate(1.4)
-- **Premium Gradients** — Gradient borders, glow effects, text gradients via CSS `mask-composite`
-- **Typography** — Inter (UI) + JetBrains Mono (data) with `lining-nums tabular-nums`
-- **Responsive** — Desktop sidebar, mobile bottom nav with safe-area-inset-bottom
+### Visual Design
 
----
-
-## Project Architecture
-
-```
-src/
-├── app/
-│   ├── (dashboard)/           # Protected dashboard pages
-│   │   ├── overview/          # Main command center
-│   │   ├── command-center/    # Unified operations room
-│   │   ├── digital-twin/      # 3D network simulation
-│   │   ├── early-warning/     # AI early detection
-│   │   ├── stations/          # Station management
-│   │   ├── predictions/       # Predictive analytics
-│   │   ├── trucks/            # Fleet tracking
-│   │   ├── recommendations/   # Smart recommendations + anomalies
-│   │   ├── audit-trail/       # Activity log
-│   │   ├── anomalies/         # Theft & anomaly detection
-│   │   ├── national-risk/     # Comprehensive risk dashboard
-│   │   ├── notifications/     # Alert center
-│   │   └── analytics/         # Advanced reporting
-│   ├── api/v1/                # REST API endpoints
-│   └── login/                 # Authentication
-├── components/
-│   ├── dashboard/
-│   │   ├── executive-summary.tsx     # Circular gauge + AI summary
-│   │   ├── jordan-map.tsx            # 3D extruded map
-│   │   ├── digital-twin.tsx          # 3D network twin
-│   │   ├── risk-heatmap.tsx          # Regional risk grid
-│   │   ├── ai-insight-card.tsx       # AI intelligence feed
-│   │   ├── recommendation-engine.tsx # Recommendation cards
-│   │   ├── anomaly-alerts.tsx        # Theft/anomaly cards
-│   │   ├── timeline-feed.tsx         # Activity timeline
-│   │   ├── kpi-chart.tsx             # Area chart
-│   │   ├── kpi-card.tsx              # KPI metric card
-│   │   └── ai-copilot.tsx            # AI chat assistant
-│   ├── layout/                # Sidebar, Topbar, BottomNav
-│   ├── chat/                  # Chat panel
-│   └── ui/                    # Primitive components (Card, Skeleton, etc.)
-├── lib/                       # Utilities, constants, prisma client
-├── contexts/                  # React contexts (chat, realtime)
-├── hooks/                     # Custom hooks (use-realtime)
-└── types/                     # TypeScript type definitions
-```
+- Dark interface based on Zinc-950.
+- Emerald accent color (`#34d399`).
+- Glass-style dashboard panels.
+- Gradient effects and animated components.
+- Inter and JetBrains Mono typography.
+- Responsive desktop and mobile layouts.
 
 ---
 
-## Data Model
+## Project Structure
 
-```
-┌─────────────┐     ┌──────────────┐     ┌────────────┐
-│    User     │────→│  Session     │     │  Station   │
-└─────────────┘     └──────────────┘     └─────┬──────┘
-       │                                       │
-       │                                       ├── Sensor
-       │                                       ├── SensorReading
-       │                                       ├── FuelInventory
-       │                                       ├── Prediction
-       │                                       ├── Notification
-       │                                       └── Anomaly
-       │
-       │    ┌────────────┐     ┌────────────┐
-       ├───→│ AuditLog   │     │   Truck    │
-       │    └────────────┘     └─────┬──────┘
-       │                             │
-       │                             ├── Trip
-       │                             ├── GpsLog
-       │                             └── Anomaly
-       │
-       │    ┌────────────┐     ┌──────────────┐
-       │    │ Prediction │────→│XaiExplanation│
-       │    └────────────┘     └──────┬───────┘
-       │                              ├── Factor
-       │                              └── Action
-       │
-       │    ┌──────────────┐
-       │    │ KpiSnapshot  │
-       │    └──────────────┘
-       │
-       │    ┌──────────────┐
-       └───→│ Notification │
-            └──────────────┘
+The application uses the Next.js App Router and organizes its code into application routes, reusable components, and supporting modules.
+
+```text
+smartfuel-jordan/
+├── src/
+│   ├── app/
+│   │   ├── (dashboard)/
+│   │   ├── api/
+│   │   └── login/
+│   ├── components/
+│   │   ├── dashboard/
+│   │   ├── layout/
+│   │   ├── chat/
+│   │   └── ui/
+│   ├── lib/
+│   ├── contexts/
+│   ├── hooks/
+│   └── types/
+├── prisma/
+├── public/
+├── package.json
+└── README.md
 ```
 
-**15 models** total — SQLite (dev) / Turso (prod) via Prisma ORM.
+*This is a simplified structure based on the project description. Confirm the actual folder and file names in the repository before relying on this tree.*
 
 ---
 
 ## Quick Start
 
 ### Prerequisites
-- Node.js ≥ 18
-- npm ≥ 9
 
-### Installation
+- Node.js 18 or later
+- npm 9 or later
+
+### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/smartfuel-jordan.git
+git clone <YOUR_REPOSITORY_URL>
 cd smartfuel-jordan
+```
+
+Replace `<YOUR_REPOSITORY_URL>` with the actual repository URL.
+
+### 2. Install Dependencies
+
+```bash
 npm install
 ```
 
-### Database Setup
+### 3. Configure the Database
+
+Generate the Prisma client:
 
 ```bash
 npx prisma generate
+```
+
+Run database migrations:
+
+```bash
 npx prisma migrate dev
+```
+
+If the project includes a seed script, run:
+
+```bash
 npm run db:seed
 ```
 
-### Run Development
+### 4. Start the Development Server
 
 ```bash
-# Terminal 1: Next.js dev server
 npm run dev
-
-# Terminal 2 (optional): WebSocket for real-time updates
-npx tsx server/index.ts
 ```
 
-### Production Build
+Open:
+
+```text
+http://localhost:3000
+```
+
+### 5. Production Build
 
 ```bash
 npm run build
@@ -208,130 +192,61 @@ npm start
 
 ---
 
-## Pages & Routes
+## Main Dashboard Routes
 
-| Route | Page | Description |
-|-------|------|-------------|
-| `/overview` | Command Center | Main executive dashboard |
-| `/command-center` | Operations Room | Unified command interface |
-| `/digital-twin` | Digital Twin | 3D network simulation |
-| `/early-warning` | Early Warning | AI-powered alert system |
-| `/stations` | Stations | Fuel station management |
-| `/stations/[id]` | Station Detail | Single station view |
-| `/stations/risk` | Risk Matrix | Station risk analysis |
-| `/predictions` | Predictions | AI shortage forecasts |
-| `/predictions/[id]` | Prediction Detail | XAI explanation view |
-| `/predictions/trends` | Trends | Historical trend analysis |
-| `/trucks` | Trucks | Fleet management |
-| `/trucks/[id]` | Truck Detail | Single truck tracking |
-| `/recommendations` | Recommendations | Smart recs + anomaly detection |
-| `/audit-trail` | Audit Trail | Full activity log |
-| `/anomalies` | Anomaly Detection | Theft & sensor anomalies |
-| `/national-risk` | Risk Dashboard | Comprehensive risk view |
-| `/notifications` | Alerts | Notification center |
-| `/analytics` | Analytics | Advanced reporting |
+The project description includes the following application areas:
+
+| Route | Description |
+|---|---|
+| `/overview` | Main dashboard |
+| `/command-center` | Operations overview |
+| `/digital-twin` | 3D network visualization |
+| `/early-warning` | Early-warning interface |
+| `/stations` | Station management |
+| `/predictions` | Prediction dashboard |
+| `/trucks` | Fleet management |
+| `/recommendations` | Recommendations and anomalies |
+| `/audit-trail` | Activity history |
+| `/anomalies` | Anomaly monitoring |
+| `/national-risk` | Risk dashboard |
+| `/notifications` | Notification center |
+| `/analytics` | Analytics and reporting |
 
 ---
 
-## API Endpoints
+## Data & Demonstration Environment
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/api/v1/dashboard` | Dashboard aggregate data |
-| GET | `/api/v1/kpi/history` | 30-day KPI history |
-| GET | `/api/v1/regions` | Regional breakdown |
-| GET | `/api/v1/stations` | List all stations |
-| GET | `/api/v1/stations/[id]` | Station details |
-| GET | `/api/v1/predictions` | AI predictions (filterable) |
-| GET | `/api/v1/predictions/[id]` | Single prediction with XAI |
-| GET | `/api/v1/trucks` | List all trucks |
-| GET | `/api/v1/trucks/[id]` | Truck details |
-| GET | `/api/v1/notifications` | Notifications |
-| GET | `/api/v1/recommendations` | Smart recommendations |
-| GET | `/api/v1/audit-logs` | Audit trail (paginated) |
-| GET | `/api/v1/anomalies` | Anomaly incidents (filterable) |
-| POST | `/api/v1/chat` | AI CoPilot query |
-| POST | `/api/v1/auth/login` | Authentication |
-| POST | `/api/v1/auth/logout` | Logout |
-| POST | `/api/v1/auth/refresh` | Token refresh |
+The project description includes sample data for dashboard development, such as:
+
+- Users and roles.
+- Fuel stations and inventories.
+- Truck and trip records.
+- KPI snapshots.
+- Anomaly examples.
+- Prediction and recommendation records.
+- Audit logs.
+
+Sample data is intended for development and demonstration. It should not be presented as verified operational information.
 
 ---
 
-## Credentials (Dev)
+## Security Notes
 
-| Email | Password | Role |
-|-------|----------|------|
-| admin@smartfuel.jo | admin123 | System Admin |
-| operator@smartfuel.jo | admin123 | Operator |
-
-> ⚠️ **Security Note**: The dev environment uses a pass-through middleware (`matcher: []`). Auth is enforced only in production.
-
----
-
-## Seed Data
-
-The `npm run db:seed` script generates:
-- **2 users** (admin + operator)
-- **8 stations** across 6 governorates
-- **24 fuel inventories** (diesel, octane 90, octane 95)
-- **5 trucks** with varying statuses
-- **124+ KPI snapshots** over 30 days
-- **6 anomalies** (theft, sensor failure, inventory discrepancy, route deviation, meter tampering)
-- **10 audit logs**
-- **AI predictions** with XAI factors and recommended actions
-
----
-
-## Jordan Station Map
-
-```
-+------------------+     +------------------+
-|      Irbid       |     |     Mafraq       |
-|  Irbid Central   |     |  Mafraq Station  |
-+--------+---------+     +--------+---------+
-         |                        |
-         |    +------------------+ |
-         +----+      Amman      +-+
-              |  Al-Hussein      |
-              |  King Abdullah II|
-              +--------+---------+
-                       |
-         +-------------+-------------+
-         |             |             |
-+--------+------+ +----+--------+ +--+-----------+
-|    Zarqa      | |   Balqa     | |    Karak      |
-|  Zarqa Main   | | Balqa Stn   | |  Karak Stn    |
-+---------------+ +-------------+ +---------------+
-
-         +------------------+
-         |      Aqaba       |
-         |  Aqaba Port Stn  |
-         +------------------+
-```
-
----
-
-## Project Stats
-
-| Metric | Value |
-|--------|-------|
-| TypeScript Files | 80+ |
-| React Components | 45+ |
-| Prisma Models | 15 |
-| API Endpoints | 18 |
-| Dashboard Pages | 14 |
-| Lucide Icons | 25+ |
-| Loader Skeletons | 5 variants |
+- Change all development credentials before deployment.
+- Store secrets in environment variables.
+- Never commit real database credentials or JWT secrets.
+- Protect API routes and administrative operations.
+- Do not expose sensitive operational or personal information.
 
 ---
 
 ## License
 
-MIT © 2025 — Open-source project for modernizing Jordan's energy infrastructure.
+MIT License.
 
 ---
 
 <p align="center">
-  <strong>SmartFuel Jordan — National Fuel Intelligence Command</strong><br/>
-  <em>From legacy to readiness — Energy intelligence for the nation.</em>
+  <strong>SmartFuel Jordan</strong><br/>
+  <em>Exploring smarter fuel supply monitoring through data and technology.</em>
 </p>
